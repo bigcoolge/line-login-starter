@@ -44,6 +44,8 @@ public class LineAPIService {
 
     private static final String GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code";
     private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
+    private static final String BOT_PROMPT_NORMAL = "normal";
+    private static final String BOT_PROMPT_AGGRESSIVE = "aggressive";
 
     @Value("${linecorp.platform.channel.channelId}")
     private String channelId;
@@ -98,7 +100,7 @@ public class LineAPIService {
         }
     }
 
-    public String getLineWebLoginUrl(String state, String nonce, List<String> scopes) {
+    public String getLineWebLoginUrl(String state, String nonce, List<String> scopes, boolean isNormal) {
         final String encodedCallbackUrl;
         final String scope = String.join("%20", scopes);
 
@@ -112,6 +114,7 @@ public class LineAPIService {
                 + "&client_id=" + channelId
                 + "&redirect_uri=" + encodedCallbackUrl
                 + "&state=" + state
+                + "&bot_prompt=" + (isNormal ? BOT_PROMPT_NORMAL : BOT_PROMPT_AGGRESSIVE)
                 + "&scope=" + scope
                 + "&nonce=" + nonce;
     }

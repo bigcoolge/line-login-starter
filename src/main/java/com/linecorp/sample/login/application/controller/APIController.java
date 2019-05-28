@@ -18,9 +18,11 @@ package com.linecorp.sample.login.application.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.linecorp.sample.login.application.model.UserInfo;
 import com.linecorp.sample.login.infra.line.api.v2.LineAPIService;
 import com.linecorp.sample.login.infra.line.api.v2.response.AccessToken;
 import com.linecorp.sample.login.infra.line.api.v2.response.Verify;
@@ -53,6 +55,11 @@ public class APIController {
         lineAPIService.revoke(token);
     }
 
+    @RequestMapping("api/register")
+    public void register(HttpSession httpSession, @RequestBody UserInfo userInfo) {
+    	System.err.println("===== userId | phone is " + userInfo.userId + " | " + userInfo.phone);
+    }
+    
     private AccessToken getAccessToken(HttpSession httpSession) {
         return (AccessToken) httpSession.getAttribute(WebController.ACCESS_TOKEN);
     }

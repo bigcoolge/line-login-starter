@@ -31,10 +31,17 @@
           <div class="area">
             <div class="center-block profile-margin">
               <img th:src="${idToken.picture}" class="profile-img img-circle" />
+              <h3 th:text="${idToken.sub}"></h3>
               <h3 th:text="${idToken.name}"></h3>
+              <p>Please input your phone number: </p>
+			<form id="phoneForm">
+              <input id="phone" type="text"></input>
+              <input id="userId" type="hidden" value="${idToken.sub}"></input>
               <button type="button" id="verify" class="btn btn-success btn-lg btn-block profile-button">verify</button>
               <button type="button" id="refreshToken" class="btn btn-success btn-lg btn-block profile-button">refreshToken</button>
               <button type="button" id="revoke" class="btn btn-success btn-lg btn-block profile-button">revoke</button>
+			  <button type="submit">Submit</button>
+			</form>
             </div>
           </div>
         </div>
