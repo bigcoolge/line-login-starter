@@ -46,6 +46,7 @@ public class LineAPIService {
     private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
     private static final String BOT_PROMPT_NORMAL = "normal";
     private static final String BOT_PROMPT_AGGRESSIVE = "aggressive";
+    private static final String BOT_CONSENT_PROMPT = "consent";
 
     @Value("${linecorp.platform.channel.channelId}")
     private String channelId;
@@ -94,7 +95,8 @@ public class LineAPIService {
                     jwt.getClaim("iat").asLong(),
                     jwt.getClaim("nonce").asString(),
                     jwt.getClaim("name").asString(),
-                    jwt.getClaim("picture").asString());
+                    jwt.getClaim("picture").asString(),
+                    jwt.getClaim("email").asString());
         } catch (JWTDecodeException e) {
             throw new RuntimeException(e);
         }
@@ -116,6 +118,7 @@ public class LineAPIService {
                 + "&state=" + state
                 + "&bot_prompt=" + (isNormal ? BOT_PROMPT_NORMAL : BOT_PROMPT_AGGRESSIVE)
                 + "&scope=" + scope
+                + "&prompt=" + BOT_CONSENT_PROMPT
                 + "&nonce=" + nonce;
     }
 
